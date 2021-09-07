@@ -2,7 +2,7 @@ import { useAppContext } from "../../app.context";
 import { LikeButton } from "../LikeButton";
 import "./styles.scss";
 export const ImageCard = ({ id, image, likes, tags, text }) => {
-  const { favorites, setFavorites } = useAppContext();
+  const { favorites, setFavorites, handleShowModal } = useAppContext();
   const handleFavorite = flag => {
     if (flag) {
       setFavorites([...favorites, id]);
@@ -13,7 +13,9 @@ export const ImageCard = ({ id, image, likes, tags, text }) => {
   return (
     <div className="img-card-container">
       <div className="image">
-        <img src={image} alt={text} loading="lazy" height={300} width={300} />
+        <button type="button" onClick={() => handleShowModal(image, text)}>
+          <img src={image} alt={text} loading="lazy" height={300} width={300} />
+        </button>
       </div>
       <div className="body">
         <p>{text}</p>

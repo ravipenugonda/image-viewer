@@ -4,6 +4,7 @@ import "./App.scss";
 import { Banner } from "./Components/Banner";
 import { FloatingButton } from "./Components/FloatingButton";
 import { ImageCard } from "./Components/ImageCard";
+import { ImageModal } from "./Components/ImageModal";
 import { Loader } from "./Components/Loader";
 import { getImages } from "./Services/images.service";
 
@@ -11,6 +12,7 @@ function App() {
   const [images, setImages] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [showFavorite, setShowFavorite] = useState(false);
+  const [showModal, setShowModal] = useState({});
   useEffect(() => {
     getImages().then(res => {
       console.log(res);
@@ -20,8 +22,15 @@ function App() {
   const handleClick = () => {
     setShowFavorite(!showFavorite);
   };
+  const handleShowModal = (image, text) => {
+    if (image) {
+      setShowModal({ image, text });
+    } else {
+      setShowModal({});
+    }
+  };
   return (
-    <AppContext.Provider value={{ favorites, setFavorites }}>
+    <AppContext.Provider value={{ favorites, setFavorites, handleShowModal }}>
       <div className="app">
         <header className="app-header">
           <Banner />
@@ -45,6 +54,9 @@ function App() {
           <FloatingButton handleClick={handleClick} active={showFavorite} />
         </main>
       </div>
+      {showModal.image && (
+        <ImageModal {...showModal} handleShowModal={handleShowModal} />
+      )}
     </AppContext.Provider>
   );
 }
