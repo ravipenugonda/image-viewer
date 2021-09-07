@@ -1,0 +1,36 @@
+.button {
+  border: none;
+  position: fixed;
+  bottom: 50px;
+  font-size: 16px;
+  right: 40px;
+  background-color: #4c4177;
+  background-image: linear-gradient(315deg, #4c4177 0%, #2a5470 74%);
+  color: white;
+  text-decoration: none;
+  border-radius: 60px;
+  height: 45px;
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  width: auto;
+  max-width: 45px; /** I'm animating max-width because width needs to be auto, and auto can't be animated **/
+  -webkit-transition: max-width 0.5s;
+  transition: max-width 0.5s;
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    max-width: 300px;
+  }
+  .icon {
+    margin-right: 0.8rem;
+    padding: 0px 9px;
+    display: flex;
+    align-items: center;
+  }
+
+  .text {
+    white-space: nowrap;
+    padding-right: 15px;
+  }
+}

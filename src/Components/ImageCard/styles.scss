@@ -1,0 +1,47 @@
+.img-card-container {
+  background: #3d3d3d;
+  background-image: linear-gradient(315deg, #4c4177 0%, #2a5470 74%);
+  color: #ffffff;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  .image {
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+  .body {
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    height: 10rem;
+    justify-content: space-between;
+    > p {
+      text-transform: capitalize;
+      margin: 0;
+      height: 2rem;
+    }
+    button {
+      display: flex;
+      justify-content: center;
+      padding: 0.5rem 0;
+      font-size: 24px;
+      gap: 4px;
+      border-radius: 8px;
+    }
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      > p {
+        margin: 0;
+        display: flex;
+        font-weight: 500;
+        gap: 8px;
+        svg {
+          fill: #e23c11;
+        }
+      }
+    }
+  }
+}

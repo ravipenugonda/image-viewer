@@ -1,33 +1,51 @@
 import { useEffect, useState } from "react";
+import { AppContext } from "./app.context";
 import "./App.scss";
 import { Banner } from "./Components/Banner";
+import { FloatingButton } from "./Components/FloatingButton";
 import { ImageCard } from "./Components/ImageCard";
 import { Loader } from "./Components/Loader";
 import { getImages } from "./Services/images.service";
 
 function App() {
   const [images, setImages] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+  const [showFavorite, setShowFavorite] = useState(false);
   useEffect(() => {
     getImages().then(res => {
       console.log(res);
       setImages(res);
     });
   }, []);
+  const handleClick = () => {
+    setShowFavorite(!showFavorite);
+  };
   return (
-    <div className="app">
-      <header className="app-header">
-        <Banner />
-      </header>
-      <main>
-        {Array.isArray(images) && images.length > 0 ? (
-          images.map(image => <ImageCard key={image.id} {...image} />)
-        ) : (
-          <div className="loader-container">
-            <Loader />
-          </div>
-        )}
-      </main>
-    </div>
+    <AppContext.Provider value={{ favorites, setFavorites }}>
+      <div className="app">
+        <header className="app-header">
+          <Banner />
+        </header>
+        <main>
+          {Array.isArray(images) && images.length > 0 ? (
+            <div className="cards-container">
+              {images
+                .filter(image =>
+                  showFavorite ? favorites.find(id => id === image.id) : image
+                )
+                .map(image => (
+                  <ImageCard key={image.id} favorites={favorites} {...image} />
+                ))}
+            </div>
+          ) : (
+            <div className="loader-container">
+              <Loader />
+            </div>
+          )}
+          <FloatingButton handleClick={handleClick} active={showFavorite} />
+        </main>
+      </div>
+    </AppContext.Provider>
   );
 }
 
